@@ -1,27 +1,21 @@
-import express from "express"
-import cors from "cors"
-import { port, mongoURL } from "./config.js"
-import mongoose from "mongoose";
+import express from "express";
+import cors from "cors"; 
+import cookieParser from "cookie-parser";
+import projRoutes from "./routes/projRoutes.js";
+import { mongoConnect } from "./config.js";
 const app = express();
-app.use(cors({
-    origin: 'https://localhost:5000',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders:'Content-Type'
-}));
+app.use(
+  cors({
+    // origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: "Content-Type",
+    credentials: true
+  })
+);
 
-// app.get('/')
+app.use(express.json()); 
+app.use(cookieParser());
 
-
-
-
-const mongoConnect = async () => {
-    await mongoose.connect(mongoURL).then(() => {
-        console.log("\n---mongo connected--")
-        app.listen(port, () => {
-            console.log(`---server running on port ${port}--- `)
-        })
-    })
-};
-
+app.use("/home", projRoutes);
 
 mongoConnect();
