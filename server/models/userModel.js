@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
     },
     userFirstName: {
         type: String,
-        required: true,
+        // required: true,
         trim:true
     },
     userMiddleName: {
@@ -50,13 +50,14 @@ const userSchema = new mongoose.Schema({
     },
     userLastName: {
         type: String,
-        required: true,
+        // required: true,
         trim:true
     },
     userContactNumber: {
-        type: String,
-        required: true,
-        unique:true
+        type: Number,
+        // required: true,
+        // unique: true,
+        default:0
     },
     userSignupDate: {
         type: Date,
@@ -64,11 +65,18 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-export const userTable= mongoose.models.user ||mongoose.model('userTable',userSchema)
+export const userTable= mongoose.model('userTable',userSchema)
 /*
 user-
-    name,no.
-    email, pswrd
-    uid PK    
+{
+    "userName": "anugya",
+    "userEmail": "pehla@gmail.com",
+    "userPassword": "pehlapassword",
+    "userFirstName": "pehlanaam",
+    "userLastName": "pehlalaastnaam",   
+    "userContactNumber":123123123
+}
+
+
 
 */
